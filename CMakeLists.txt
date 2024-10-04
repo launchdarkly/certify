@@ -67,7 +67,7 @@ write_basic_package_version_file(
     COMPATIBILITY AnyNewerVersion)
 
 install(FILES
-            "${CMAKE_CURRENT_BINARY_DIR}/certifyConfig.cmake"
+            "${CMAKE_CURRENT_SOURCE_DIR}/certifyConfig.cmake"
             "${CMAKE_CURRENT_BINARY_DIR}/certifyConfigVersion.cmake"
         DESTINATION ${CMAKE_INSTALL_DATADIR}/certify)
 
