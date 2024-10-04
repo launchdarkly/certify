@@ -69,7 +69,7 @@ write_basic_package_version_file(
 install(FILES
             "${CMAKE_CURRENT_SOURCE_DIR}/certifyConfig.cmake"
             "${CMAKE_CURRENT_BINARY_DIR}/certifyConfigVersion.cmake"
-        DESTINATION ${CMAKE_INSTALL_DATADIR}/certify)
+        DESTINATION ${CMAKE_INSTALL_DATADIR}/cmake/certify)
 
 install(DIRECTORY ${CMAKE_SOURCE_DIR}/include/
         DESTINATION ${CMAKE_INSTALL_INCLUDEDIR}
@@ -82,7 +82,7 @@ install(TARGETS core
 install(EXPORT certifyTargets
         FILE certifyTargets.cmake
         NAMESPACE certify::
-        DESTINATION ${CMAKE_INSTALL_DATADIR}/certify)
+        DESTINATION ${CMAKE_INSTALL_DATADIR}/cmake/certify)
 
 include(CTest)
 if(BUILD_TESTING)
