@@ -35,13 +35,19 @@ add_library(certify::core ALIAS core)
 target_compile_features(core INTERFACE cxx_std_11)
 
 target_include_directories(core INTERFACE
-    $<BUILD_INTERFACE:${CMAKE_SOURCE_DIR}/include>
+    $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>
     $<INSTALL_INTERFACE:include>
 )
 
 if(MSVC)
 	target_link_libraries(core INTERFACE Crypt32.lib)
 endif()
+
+if (APPLE)
+    find_library(COREFOUNDATION_LIBRARY CoreFoundation)
+    find_library(SECURITY_LIBRARY Security)
+    target_link_libraries(core INTERFACE ${COREFOUNDATION_LIBRARY} ${SECURITY_LIBRARY})
+endif ()
 
 target_link_libraries(
     core
@@ -54,27 +60,29 @@ target_link_libraries(
         OpenSSL::Crypto)
 
 include(CMakePackageConfigHelpers)
+include(GNUInstallDirs)
+
 write_basic_package_version_file(
-    "certifyConfigVersion.cmake"
+    "${CMAKE_CURRENT_BINARY_DIR}/certifyConfigVersion.cmake"
     COMPATIBILITY AnyNewerVersion)
 
 install(FILES
-            "certifyConfig.cmake"
-            "${CMAKE_BINARY_DIR}/certifyConfigVersion.cmake"
-        DESTINATION lib/cmake/certify)
+            "${CMAKE_CURRENT_BINARY_DIR}/certifyConfig.cmake"
+            "${CMAKE_CURRENT_BINARY_DIR}/certifyConfigVersion.cmake"
+        DESTINATION ${CMAKE_INSTALL_DATADIR}/certify)
 
 install(DIRECTORY ${CMAKE_SOURCE_DIR}/include/
-        DESTINATION include
+        DESTINATION ${CMAKE_INSTALL_INCLUDEDIR}
 	FILES_MATCHING PATTERN "*.hpp" PATTERN "*.ipp")
 
 install(TARGETS core
         EXPORT certifyTargets
-        INCLUDES DESTINATION include)
+        INCLUDES DESTINATION ${CMAKE_INSTALL_INCLUDEDIR})
 
 install(EXPORT certifyTargets
         FILE certifyTargets.cmake
         NAMESPACE certify::
-        DESTINATION lib/cmake/certify)
+        DESTINATION ${CMAKE_INSTALL_DATADIR}/certify)
 
 include(CTest)
 if(BUILD_TESTING)
