@@ -3,6 +3,13 @@ project(certify VERSION 0.1 LANGUAGES CXX)
 
 list(INSERT CMAKE_MODULE_PATH 0 ${PROJECT_SOURCE_DIR}/CMakeModules)
 
+# This policy is designed to force a choice between the old behavior of an integrated FindBoost implementation
+# and the implementation provided in by boost.
+if(POLICY CMP0167)
+    # Uses the BoostConfig.cmake included with the boost distribution.
+    cmake_policy(SET CMP0167 NEW)
+endif()
+
 if (CMAKE_VERSION VERSION_LESS 3.11)
     # Latest FindBoost.cmake has likely been updated to detect Boost version not yet released
     if (NOT EXISTS "${CMAKE_BINARY_DIR}/cmake/FindBoost.cmake")
