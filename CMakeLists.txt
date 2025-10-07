@@ -3,6 +3,10 @@ project(certify VERSION 0.1 LANGUAGES CXX)
 
 list(INSERT CMAKE_MODULE_PATH 0 ${PROJECT_SOURCE_DIR}/CMakeModules)
 
+if (POLICY CMP0144)
+    cmake_policy(SET CMP0144 NEW)
+endif ()
+
 if (CMAKE_VERSION VERSION_LESS 3.11)
     # Latest FindBoost.cmake has likely been updated to detect Boost version not yet released
     if (NOT EXISTS "${CMAKE_BINARY_DIR}/cmake/FindBoost.cmake")
