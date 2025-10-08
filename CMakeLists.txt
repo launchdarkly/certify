@@ -58,7 +58,6 @@ endif ()
 target_link_libraries(
     core
     INTERFACE
-        Boost::system
         Boost::filesystem
         Boost::date_time
         Threads::Threads
