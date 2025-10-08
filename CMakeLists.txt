@@ -22,9 +22,8 @@ if (CMAKE_VERSION VERSION_LESS 3.11)
     list(INSERT CMAKE_MODULE_PATH 0 ${CMAKE_BINARY_DIR}/cmake)
 endif()
 
-find_package(Boost 1.67
+find_package(Boost 1.69
              COMPONENTS
-                system
                 filesystem
                 date_time
                 unit_test_framework
@@ -59,7 +58,6 @@ endif ()
 target_link_libraries(
     core
     INTERFACE
-        Boost::system
         Boost::filesystem
         Boost::date_time
         Threads::Threads
