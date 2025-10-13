@@ -1,6 +1,6 @@
 include(CMakeFindDependencyMacro)
 
-find_dependency(Boost COMPONENTS system filesystem date_time)
+find_dependency(Boost COMPONENTS filesystem date_time)
 find_dependency(OpenSSL)
 find_dependency(Threads)
 
